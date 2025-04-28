@@ -23,6 +23,9 @@ $formatted_user_info          = $booking::getFormattedUserInfo();
 $admin_booking_id             = $booking->getMeta( 'admin_booking_id' );
 $current_status               = $booking->post_status;
 $internal_comment             = $booking->getMeta( 'internal-comment' );
+$fb_url                       = Settings::getOption('commonsbooking_options_advanced-options', 'feedback_form_url');
+$fb_params                    = [ 'booking_id' => $post->post_name, 'user' => $user->ID ];
+$form_url                       = Forms::genFormURL();
 
 
 do_action( 'commonsbooking_before_booking-single' );
@@ -64,6 +67,22 @@ echo commonsbooking_sanitizeHTML( $booking->bookingNotice() ); ?>
 		?>
 	</div><!-- cb-booking-datetime -->
 
+	<!-- booking-id-for-form -->
+	<div class="cb-wrapper">
+    	<div class="cb-list-header">
+        	<h3><?php echo esc_html__('Feedback Form', 'commonsbooking'); ?></h3>
+        </div>
+        <div class="cb-list-content cb-address cb-col-30-70">
+			<div><?php echo esc_html__('Booking ID: ', 'commonsbooking'); ?>: </div>
+            <div><?php echo esc_html($post->post_name); ?></div>
+        </div>
+        <div class="cb-list-content cb-address cb-col-30-70">
+				<div><?php echo esc_html__('Form: ', 'commonsbooking'); ?>: </div>	
+			<a href="<?php echo esc_url($fb_url); ?>" class="button-for-cb-form" target="_blank"><?php echo esc_html__('Open', 'commonsbooking'); ?></a>
+        </div>
+    </div>
+<!-- booking-id-for-form -->
+ 
 	<!-- Location -->
 	<div class="cb-wrapper cb-booking-location">
 		<div class="cb-list-header">

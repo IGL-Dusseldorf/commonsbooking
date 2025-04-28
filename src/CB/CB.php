@@ -67,6 +67,65 @@ class CB {
 		return apply_filters( "commonsbooking_tag_{$key}_{$property}", $result );
 	}
 
+		/**
+	 * Appends or merges query parameters to a URL.
+	 *
+	 * @param string $url
+     * @param array  $params
+	 *
+	 * @return string
+	*/
+
+	public static function appendToUrl($url, $params) {
+		// Ensure $url is a string
+		if (!is_string($url)) {
+			return '';
+		}
+
+		// Ensure $params is an array
+		if (!is_array($params)) {
+			return $url;
+		}
+		
+		// Validate URL format
+		if (!filter_var($url, FILTER_VALIDATE_URL)) {
+			return $url; // Return unchanged if invalid
+		}
+
+		// Parse existing URL components
+		$parsedUrl = parse_url($url);
+
+		// Return original URL if parsing failed
+		if ($parsedUrl === false) {
+			return $url;
+		}
+
+		// Convert existing query string to an array (if present)
+		parse_str($parsedUrl['query'] ?? '', $existingParams);
+
+		// Merge existing and new parameters
+		$newParams = array_merge($existingParams, $params);
+
+		// Build the updated query string
+		$updatedQuery = http_build_query($newParams);
+
+		// Reconstruct the full URL
+		$scheme   = $parsedUrl['scheme'] ?? (strpos($url, 'https://') === 0 ? 'https' : 'http');
+		$host     = $parsedUrl['host'] ?? '';
+		$path     = $parsedUrl['path'] ?? '';
+		$fragment = $parsedUrl['fragment'] ?? '';
+
+		$newUrl = "{$scheme}://{$host}{$path}";
+		if ($updatedQuery) {
+			$newUrl .= "?{$updatedQuery}";
+		}
+		if ($fragment) {
+			$newUrl .= "#{$fragment}";
+		}
+
+		return $newUrl;
+	}
+	
 	/**
 	 * Returns post id by class name of (custom) post.
 	 *

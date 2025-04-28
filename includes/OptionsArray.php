@@ -1570,6 +1570,64 @@ Return date: {{booking:returnDatetime}}
 					),
 				),
 			),
+			'forms_settings' => array(
+            'title'  => esc_html__( 'BETA Forms Settings', 'commonsbooking' ),
+            'id'     => 'forms_settings',
+            'desc'   => commonsbooking_sanitizeHTML( __( 'Settings for Formbricks integration', 'commonsbooking' ) ),
+            'fields' => array(
+                array(
+                    'name' => esc_html__( 'Enable Formbricks', 'commonsbooking' ),
+                    'id'   => 'form_enabled',
+                    'type' => 'checkbox',
+                ),
+                array(
+                    'name' => esc_html__( 'Formbricks Domain', 'commonsbooking' ),
+                    'id'   => 'formbricks_domain',
+                    'type' => 'text',
+                ),
+                array(
+                    'name' => esc_html__( 'Formbricks Instance ID', 'commonsbooking' ),
+                    'id'   => 'formbricks_instance_id',
+                    'type' => 'text',
+                ),
+				array(
+                    'name' => esc_html__( 'Form URL', 'commonsbooking' ),
+                    'id'   => 'feedback_form_url',
+                    'type' => 'text',
+                ),
+                array(
+                    'name' => esc_html__( 'Custom Small Text', 'commonsbooking' ),
+                    'id'   => 'custom_small_text',
+                    'type' => 'textarea_small',
+					'default' => 'BETA NOT STABLE',
+                ),
+				array(
+					'id'          => 'form_url_params',
+					'type'        => 'group',
+					'name'        => esc_html__( 'Form URL Variables', 'commonsbooking' ),
+					'description' => esc_html__( 'Add custom key-value pairs for dynamic URLs.', 'commonsbooking' ),
+					'repeatable'  => true,
+					'options'     => array(
+						'group_title'   => __( 'Pair {#}', 'commonsbooking' ), 
+						'add_button'    => __( 'Add Pair', 'commonsbooking' ),
+						'remove_button' => __( 'Remove Pair', 'commonsbooking' ),
+						'sortable'      => true,
+					),
+					'fields'       => array(
+						array(
+							'name' => esc_html__( 'Key', 'commonsbooking' ),
+							'id'   => 'key',
+							'type' => 'text',
+						),
+						array(
+							'name' => esc_html__( 'Value', 'commonsbooking' ),
+							'id'   => 'value',
+							'type' => 'text',
+						),
+					),
+            	),
+			),
+		),
 		),
 	),
 	/* Tab: advanced options end */
