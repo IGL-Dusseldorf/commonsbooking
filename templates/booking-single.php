@@ -25,7 +25,7 @@ $current_status               = $booking->post_status;
 $internal_comment             = $booking->getMeta( 'internal-comment' );
 $fb_url                       = Settings::getOption('commonsbooking_options_advanced-options', 'feedback_form_url');
 $fb_params                    = [ 'booking_id' => $post->post_name, 'user' => $user->ID ];
-$form_url                       = Forms::genFormURL();
+$form_url                       = CB::appendToUrl($fb_url, $fb_params);
 
 
 do_action( 'commonsbooking_before_booking-single' );
@@ -82,7 +82,7 @@ echo commonsbooking_sanitizeHTML( $booking->bookingNotice() ); ?>
         </div>
     </div>
 <!-- booking-id-for-form -->
- 
+
 	<!-- Location -->
 	<div class="cb-wrapper cb-booking-location">
 		<div class="cb-list-header">
